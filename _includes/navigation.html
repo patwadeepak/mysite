@@ -1,0 +1,19 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Deepak Patwa</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav" style="width: fit-content; margin-left: auto;">
+
+            {% for item in site.data.navigation %}
+            <a class="nav-item nav-link ml-auto" href="{{ item.link }}">
+                {{ item.name }}
+            </a>
+            {% endfor %}
+            <a class="nav-item nav-link ml-auto" href="#" title="Click to Download Résumé">Download
+                Résumé</a>
+        </ul>
+    </div>
+</nav>
