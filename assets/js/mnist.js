@@ -1,18 +1,24 @@
 window.addEventListener("load", () => {
     const canvas = document.querySelector('#canvas');
     const ctx = canvas.getContext("2d");
-    ctx.lineWidth = 10;
+    ctx.lineWidth = 20;
     ctx.lineCap = "round";
 
     // Resizing and positioning
-    canvas.height = 250;
-    canvas.width = 250;
+    canvas.height = 300;
+    canvas.width = 300;
 
     // variables
     let drawing = false;
+    let mousePos = {
+        x: 0,
+        y: 0
+    };
+    let lastPos = mousePos;
 
     function startPosition(e) {
         drawing = true;
+        lastPos = getMousePos(canvas, e);
         draw(e);
     }
 
@@ -21,24 +27,51 @@ window.addEventListener("load", () => {
         ctx.beginPath();
     }
 
-    //EventListeners
-    let x, y;
-
-    function draw(e) {
-        if (!drawing) return;
-
-        x = e.clientX - $(canvas).offset().left;
-        y = e.clientY - $(canvas).offset().top;
-
-        ctx.lineTo(x, y);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(x, y);
+    function moving(e) {
+        mousePos = getMousePos(canvas, e);
     }
 
     canvas.addEventListener('mousedown', startPosition);
     canvas.addEventListener('mouseup', endPosition);
-    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mousemove', moving);
+
+    // Get position relative to canvas
+    function getMousePos(canvasDom, mouseEvent) {
+        let rect = canvasDom.getBoundingClientRect();
+        return {
+            x: mouseEvent.clientX - rect.left,
+            y: mouseEvent.clientY - rect.top
+        };
+    }
+
+    // regular interval to draw on the screen
+    window.requestAnimFrame = (function (callback) {
+        return window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.oRequestAnimationFrame ||
+            window.msRequestAnimaitonFrame ||
+            function (callback) {
+                window.setTimeout(callback, 1000 / 60);
+            };
+    })();
+
+    // Finally draw on the canvas
+    function renderCanvas() {
+        if (drawing) {
+            ctx.moveTo(lastPos.x, lastPos.y);
+            ctx.lineTo(mousePos.x, mousePos.y);
+            ctx.stroke();
+            ctx.beginPath();
+            lastPos = mousePos;
+        }
+    }
+
+    // Allow for animation
+    (function drawLoop() {
+        requestAnimFrame(drawLoop);
+        renderCanvas();
+    })();
 
     // Set up touch events for mobile, etc
     canvas.addEventListener("touchstart", function (e) {
@@ -73,6 +106,23 @@ window.addEventListener("load", () => {
             y: touchEvent.touches[0].clientY - rect.top
         };
     }
+
+    // Prevent scrolling when touching the canvas
+    document.body.addEventListener("touchstart", function (e) {
+        if (e.target == canvas) {
+            e.preventDefault();
+        }
+    }, false);
+    document.body.addEventListener("touchend", function (e) {
+        if (e.target == canvas) {
+            e.preventDefault();
+        }
+    }, false);
+    document.body.addEventListener("touchmove", function (e) {
+        if (e.target == canvas) {
+            e.preventDefault();
+        }
+    }, false);
 });
 
 
