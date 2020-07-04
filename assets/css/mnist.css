@@ -1,10 +1,12 @@
-#canvas {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
-        0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
 html,
 body {
     overscroll-behavior-y: contain;
     /* disable pull to refresh, keeps glow effects */
+}
+
+#canvas {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    cursor: url('/assets/images/cursor.png') 0 30,
+        auto;
 }

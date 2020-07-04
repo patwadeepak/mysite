@@ -1,8 +1,6 @@
 window.addEventListener("load", () => {
     const canvas = document.querySelector('#canvas');
     const ctx = canvas.getContext("2d");
-    ctx.lineWidth = 20;
-    ctx.lineCap = "round";
 
     // Resizing and positioning
     canvas.height = 300;
@@ -18,8 +16,9 @@ window.addEventListener("load", () => {
 
     function startPosition(e) {
         drawing = true;
+        ctx.lineWidth = 10;
+        ctx.lineCap = "round";
         lastPos = getMousePos(canvas, e);
-        draw(e);
     }
 
     function endPosition() {
@@ -106,16 +105,32 @@ window.addEventListener("load", () => {
             y: touchEvent.touches[0].clientY - rect.top
         };
     }
+
+    // Load model
+
+    function processModel(data){
+        let model = tf.loadLayersModel('./model/model.json');
+        model.then((actual_model) => {
+            actual_model.predict(data).print();
+        }).catch((message) => 
+            console.log('Caught this error:'+message)
+        );
+    };
+     
+
+    //setup predict func
+    function predict() {
+        const example = tf.image.resizeNearestNeighbor(tf.browser.fromPixels(canvas, 4), [28, 28]).sum(2, true).reshape([-1, 28, 28, 1]);
+        const maxPixVal = tf.scalar(255);
+        const sample = tf.div(example, maxPixVal);
+        try {
+            processModel(sample);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    //setup event listener for predict
+    canvas.addEventListener("mouseup", predict);
+
 });
-
-
-
-
-
-// Load the model.
-// cocoSsd.load().then(model => {
-//     // detect objects in the image.
-//     model.detect(img).then(predictions => {
-//         console.log('Predictions: ', predictions);
-//     });
-// });
