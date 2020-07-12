@@ -107,11 +107,12 @@ window.addEventListener("load", () => {
     }
 
     // Load model
-
     function processModel(data){
         let model = tf.loadLayersModel('./model/model.json');
         model.then((actual_model) => {
-            actual_model.predict(data).print();
+            let arr = actual_model.predict(data).dataSync();
+            let i = arr.indexOf(Math.max(...arr));
+            console.log(i);
         }).catch((message) => 
             console.log('Caught this error:'+message)
         );
