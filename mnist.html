@@ -4,18 +4,33 @@ title: Home
 ---
 <div id="content" class="container">
     <div id="heading">
-        <h4>
-            Digit Recognizer<span class="glyphicon glyphicon-link"></span>
+        <h1 style="color: rgb(44, 44, 44);">
+            Digit Recognizer
+            <a href='https://www.kaggle.com/c/digit-recognizer' class="fa fa-link" aria-hidden="true"
+                style="color: #e83e8c"></a>
+        </h1>
+        <h4 style="color: rgb(110, 110, 110);">
+            Handwritten digits recognition model deployed using <a
+                href="https://www.tensorflow.org/js/" style="color: #e83e8c;">TensorFlow.js</a>
+            
         </h4>
-        
     </div>
+    
+    
     <div class="row">
         <div id="body" class="col-lg-8 col-md-12 col-sm-12">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat perferendis sint, optio dolorem impedit
-            nobis vitae porro asperiores quas ex ut animi odio, aliquam natus? Saepe fugiat iure at fugit.
+            <p>
+                This examples lets you train a handwritten digit recognizer using either a Convolutional Neural Network
+                (also known as a ConvNet or CNN) or a Fully Connected Neural Network (also known as a DenseNet).
+
+                The MNIST dataset is used as training data.
+            </p>      
         </div>
 
         <div id="canvasdiv" class="col-lg-4 col-md-12 col-sm-12">
+            <div>
+                <h5 id='output'>Draw here</h5>
+            </div>
             <canvas id="canvas"></canvas>
         </div>
     </div>

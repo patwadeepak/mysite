@@ -112,7 +112,8 @@ window.addEventListener("load", () => {
         model.then((actual_model) => {
             let arr = actual_model.predict(data).dataSync();
             let i = arr.indexOf(Math.max(...arr));
-            console.log(i);
+            // console.log(i);
+            document.querySelector('#output').innerText = ' Digit = '+i;
         }).catch((message) => 
             console.log('Caught this error:'+message)
         );
