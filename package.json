@@ -1,7 +1,7 @@
 {
-  "name": "vite-template-solid",
-  "version": "0.0.0",
-  "description": "",
+  "name": "portfolio",
+  "version": "0.0.2",
+  "description": "Site to be used as Blog and Portfolio for Deepak Kumar Patwa",
   "scripts": {
     "start": "vite",
     "dev": "vite",
@@ -10,11 +10,12 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "typescript": "^4.6.2",
-    "vite": "^2.8.6",
-    "vite-plugin-solid": "^2.2.6"
+    "@vitejs/plugin-legacy": "^4.0.1",
+    "typescript": "^4.9.5",
+    "vite": "^4.1.1",
+    "vite-plugin-solid": "^2.5.0"
   },
   "dependencies": {
-    "solid-js": "^1.3.12"
+    "solid-js": "^1.6.10"
   }
 }
